@@ -1,5 +1,5 @@
 module.exports = {
-    globDirectory: '.nuxt/',
+    globDirectory: '.output/',
     globPatterns: [
       '**/*.{html,js,css,png,jpg,svg}'
     ],
