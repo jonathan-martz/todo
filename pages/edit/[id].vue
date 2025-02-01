@@ -1,17 +1,23 @@
 <template>
     <section class="page md:mx-auto max-w-6xl bg-green-300 px-3 py-3">
         <form @submit.prevent="update()">
-            <section class="form-control">
+            <section class="form-control hidden">
                 <label for="" class="label text-sm font-bold">User</label>
                 <input type="text" v-model="item.user" class="input">
             </section>
-            <section class="form-control">
-                <label for="" class="label text-sm font-bold">Prio</label>
-                <input type="number" v-model="item.prio" min="1" max="5" class="input">
-            </section>
-            <section class="form-control">
-                <label for="" class="label text-sm font-bold">Name</label>
-                <input type="text" v-model="item.name" class="input">
+            <section class="grid grid-cols-6 gap-3">
+                <div class="col-span-3">
+                    <section class="form-control">
+                        <label for="" class="label text-sm font-bold">Prio</label>
+                        <input type="number" v-model="item.prio" min="1" max="5" class="input">
+                    </section>
+                </div>
+                <div class="col-span-3">
+                    <section class="form-control">
+                        <label for="" class="label text-sm font-bold">Name</label>
+                        <input type="text" v-model="item.name" class="input">
+                    </section>
+                </div>
             </section>
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Beschreibung</label>
