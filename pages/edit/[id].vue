@@ -36,9 +36,10 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
+const router = useRouter();
 
 // Todo viewModel
 let item = ref({
@@ -51,12 +52,13 @@ let item = ref({
 let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
 
 let update = async () => {
-    pb.collection('todos').update(item.value.id, {
+    await pb.collection('todos').update(item.value.id, {
         name: item.value.name,
         user: item.value.user,
         prio: item.value.prio,
         description: item.value.description
     });
+    router.push('/');
 }
 
 onMounted(async () => {
