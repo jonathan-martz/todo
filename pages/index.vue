@@ -21,7 +21,7 @@
                 </thead>
                 <tbody>
                     <!-- row 1 -->
-                    <tr v-for="(item, index) in items" :key="item.id">
+                    <tr v-for="(item, index) in sortedItems" :key="item.id">
                         <th>{{ index }}</th>
                         <td>
                             {{ item.name }}
@@ -57,6 +57,11 @@ const pb = new PocketBase('https://admin.todos.martz.cloud');
 
 let items = ref([]);
 const router = useRouter();
+
+const sortedItems = computed(() => {
+    
+  return items.value.slice().sort((a, b) => a.created - b.created)
+})
 
 let remove = async (id) => {
     if (confirm('Willst du wirklich das Todo löschen mit der id(' + id + ')')) {
