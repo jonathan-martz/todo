@@ -59,7 +59,9 @@ let items = ref([]);
 const router = useRouter();
 
 let remove = async (id) => {
-    await pb.collection('todos').delete(id);
+    if (confirm('Willst du wirklich das Todo löschen mit der id(' + id + ')')) {
+        await pb.collection('todos').delete(id);
+    }
 }
 
 let edit = (id) => {
