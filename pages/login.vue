@@ -3,7 +3,7 @@
         <form @submit.prevent="login()">
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">User</label>
-                <input type="text" v-model="item.user" class="input">
+                <input type="text" v-model="item.email" class="input">
             </section>
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Password</label>
@@ -27,12 +27,12 @@ import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 let item = ref({
     password: '',
     passwordConfirm: '',
-    user: '',
+    email: '',
 });
 
 let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
 
 let login = async () => {
-    await pb.collection('users').authWithPassword('user@jmartz.de', 'QB1BEf!3iz7oGmi72*4c');
+    await pb.collection('users').authWithPassword(item.value.email, item.value.password);
 }
 </script>
