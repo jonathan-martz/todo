@@ -42,7 +42,7 @@ import { useRouter } from 'vue-router';
 let item = ref({
     name: '',
     user: '',
-    prio: 5,
+    prio: 3,
     description: '',
 });
 

@@ -60,7 +60,7 @@ const router = useRouter();
 
 const sortedItems = computed(() => {
     
-  return items.value.slice().sort((a, b) => a.created - b.created)
+  return items.value.slice().sort((a, b) => b.prio - a.prio)
 })
 
 let remove = async (id) => {
@@ -89,7 +89,6 @@ onMounted(async () => {
                     items.value[index] = e.record
                 }
             });
-            console.log('Updated item:', updatedItem);
         }
     }, { /* other options like: filter, expand, custom headers, etc. */ });
 });
