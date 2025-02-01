@@ -7,7 +7,11 @@
             </section>
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Kategorie</label>
-                <input type="text" v-model="item.category" class="input">
+                <select name="" id="" v-model="item.category" class="select">
+                    <option v-for="category in categories" :key="category.id" :value="category.id">
+                        {{ category.name }}
+                    </option>
+                </select>
             </section>
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Name</label>
@@ -16,11 +20,11 @@
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Prio</label>
                 <select name="" id="" v-model="item.prio" class="select">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
                     <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
                 </select>
             </section>
             <section class="form-control">
@@ -51,6 +55,8 @@ let item = ref({
     category: '',
 });
 
+const categories = ref([]);
+
 const router = useRouter();
 
 let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
@@ -67,5 +73,6 @@ let add = async () => {
 
 onMounted(async () => {
     item.value.user = pb.authStore.model?.id ?? '0'
+    categories.value = await pb.collection('todos_categories').getFullList(100);
 });
 </script>
