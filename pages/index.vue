@@ -15,17 +15,20 @@
                 <!-- head -->
                 <thead>
                     <tr>
-                        <th></th>
                         <th>Prio</th>
+                        <th>Kategorie</th>
                         <th>Name</th>
+                        <th>Beschreibung</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- row 1 -->
                     <tr v-for="(item, index) in sortedItems" class="bg-neutral" :key="item.id">
-                        <th>{{ index }}</th>
                         <td>
                             {{ item.prio }}
+                        </td>
+                        <td>
+                            {{ item.category }}
                         </td>
                         <td>
                             {{ item.name }}
@@ -36,6 +39,12 @@
                         <td class="flex justify-end space-x-3">
                             <button @click="edit(item.id)" class="btn btn-sm btn-primary text-white">
                                 <Fa :icon="faEdit" class="w-3" />
+                            </button>
+                            <button @click="done(item.id)" class="btn btn-sm btn-primary text-white">
+                                <Fa :icon="faCheck" class="w-3" />
+                            </button>
+                            <button @click="discarded(item.id)" class="btn btn-sm btn-primary text-white">
+                                <Fa :icon="faTimes" class="w-3" />
                             </button>
                             <button @click="remove(item.id)" class="btn btn-sm btn-primary text-white">
                                 <Fa :icon="faTrash" class="w-3" />
@@ -52,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEdit, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
 import { useRouter } from 'vue-router';
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
@@ -63,8 +72,10 @@ let items = ref([]);
 const router = useRouter();
 
 const sortedItems = computed(() => {
-
-    return items.value.slice().sort((a, b) => b.prio - a.prio)
+    return items.value
+        .filter(item => !item.done)
+        .filter(item => !item.discarded)
+        .slice().sort((a, b) => b.prio - a.prio)
 })
 
 let remove = async (id) => {
@@ -73,12 +84,30 @@ let remove = async (id) => {
     }
 }
 
+let discarded = async function (id) {
+    await pb.collection('todos').update(id, {
+        discarded: 'true'
+    });
+    load();
+}
+
+let done = async function (id) {
+    await pb.collection('todos').update(id, {
+        done: 'true'
+    });
+    load();
+}
+
 let edit = (id) => {
     router.push('/edit/' + id);
 }
 
-onMounted(async () => {
+let load = async () => {
     items.value = (await pb.collection('todos').getFullList(100))
+}
+
+onMounted(async () => {
+    load();
 
     pb.collection('todos').subscribe('*', function (e) {
         if (e.action == 'delete') {

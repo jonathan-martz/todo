@@ -5,33 +5,35 @@
                 <label for="" class="label text-sm font-bold">User</label>
                 <input type="text" v-model="item.user" class="input">
             </section>
-            <section class="grid grid-cols-6 gap-3">
-                <div class="col-span-3">
-                    <section class="form-control">
-                        <label for="" class="label text-sm font-bold">Name</label>
-                        <input type="text" v-model="item.name" class="input">
-                    </section>
-                </div>
-                <div class="col-span-3">
-                    <section class="form-control">
-                        <label for="" class="label text-sm font-bold">Prio</label>
-                        <select name="" id="" v-model="item.prio" class="select">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </section>
-                </div>
+
+            <section class="form-control">
+                <label for="" class="label text-sm font-bold">Kategorie</label>
+                <input type="text" v-model="item.category" class="input">
             </section>
+
+            <section class="form-control">
+                <label for="" class="label text-sm font-bold">Name</label>
+                <input type="text" v-model="item.name" class="input">
+            </section>
+            
+            <section class="form-control">
+                <label for="" class="label text-sm font-bold">Prio</label>
+                <select name="" id="" v-model="item.prio" class="select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </section>
+
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Beschreibung</label>
                 <textarea name="" v-model="item.description" id="" rows="3" class="textarea"></textarea>
             </section>
             <section class="form-actions flex justify-end mt-3">
                 <button type="submit" class="btn btn-primary">
-                    abschicken
+                    aktualisieren
                 </button>
             </section>
         </form>
