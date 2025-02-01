@@ -15,7 +15,7 @@
                 <label for="" class="label text-sm font-bold">Name</label>
                 <input type="text" v-model="item.name" class="input">
             </section>
-            
+
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Prio</label>
                 <select name="" id="" v-model="item.prio" class="select">
@@ -55,6 +55,7 @@ let item = ref({
     user: '',
     prio: 5,
     description: '',
+    category: '',
 });
 
 let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
