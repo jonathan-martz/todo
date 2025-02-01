@@ -68,6 +68,7 @@ let update = async () => {
         name: item.value.name,
         user: item.value.user,
         prio: item.value.prio,
+        category: item.value.category,
         description: item.value.description
     });
     router.push('/');
