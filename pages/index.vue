@@ -11,18 +11,22 @@
             </section>
         </section>
         <div v-if="items.length > 0" class="overflow-x-auto">
-            <table class="table table-zebra">
+            <table class="table">
                 <!-- head -->
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Prio</th>
                         <th>Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- row 1 -->
-                    <tr v-for="(item, index) in sortedItems" :key="item.id">
+                    <tr v-for="(item, index) in sortedItems" class="bg-neutral" :key="item.id">
                         <th>{{ index }}</th>
+                        <td>
+                            {{ item.prio }}
+                        </td>
                         <td>
                             {{ item.name }}
                         </td>
@@ -59,8 +63,8 @@ let items = ref([]);
 const router = useRouter();
 
 const sortedItems = computed(() => {
-    
-  return items.value.slice().sort((a, b) => b.prio - a.prio)
+
+    return items.value.slice().sort((a, b) => b.prio - a.prio)
 })
 
 let remove = async (id) => {
