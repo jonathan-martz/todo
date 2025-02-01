@@ -64,6 +64,7 @@
                 <div class="col-span-6" v-for="(item, index) in sortedItems" :key="item.id">
                     <div class="card bg-base-100 shadow-xl">
                         <div class="card-body">
+                            <h3 v-if="item.expand.category">{{ item.expand.category.name }}</h3>
                             <h2 class="card-title">{{ item.name }}</h2>
                             <p>{{ item.description }}</p>
                             <div class="card-actions justify-end">
