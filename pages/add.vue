@@ -66,7 +66,8 @@ let add = async () => {
         name: item.value.name,
         user: item.value.user,
         prio: item.value.prio,
-        description: item.value.description
+        description: item.value.description,
+        category: item.value.category
     });
     router.push('/');
 }

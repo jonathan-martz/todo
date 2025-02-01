@@ -10,7 +10,7 @@
                 </a>
             </section>
         </section>
-        <div v-if="items.length > 0" class="overflow-x-auto">
+        <div v-if="items.length > 0" class="overflow-x-auto hidden md:block">
             <table class="table">
                 <!-- head -->
                 <thead>
@@ -27,9 +27,10 @@
                         <td>
                             {{ item.prio }}
                         </td>
-                        <td>
-                            {{ item.category }}
+                        <td v-if="item.expand.category">
+                            {{ item.expand.category.name }}
                         </td>
+                        <td v-else>-</td>
                         <td>
                             {{ item.name }}
                         </td>
@@ -56,6 +57,33 @@
         </div>
         <div v-else>
             <p class="text-sm block text-center px-3 py-3 font-bold">Es gibt für dich noch keine Todos.</p>
+        </div>
+
+        <div v-if="items.length > 0" class="overflow-x-auto block md:hidden px-3 py-3 lg:px-3 lg:py-0">
+            <div class="grid grid-cols-6 gap-3">
+                <div class="col-span-6" v-for="(item, index) in sortedItems" :key="item.id">
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ item.name }}</h2>
+                            <p>{{ item.description }}</p>
+                            <div class="card-actions justify-end">
+                                <button @click="edit(item.id)" class="btn btn-sm btn-primary text-white">
+                                    <Fa :icon="faEdit" class="w-3" />
+                                </button>
+                                <button @click="done(item.id)" class="btn btn-sm btn-primary text-white">
+                                    <Fa :icon="faCheck" class="w-3" />
+                                </button>
+                                <button @click="discarded(item.id)" class="btn btn-sm btn-primary text-white">
+                                    <Fa :icon="faTimes" class="w-3" />
+                                </button>
+                                <button @click="remove(item.id)" class="btn btn-sm btn-primary text-white">
+                                    <Fa :icon="faTrash" class="w-3" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </template>
@@ -103,7 +131,7 @@ let edit = (id) => {
 }
 
 let load = async () => {
-    items.value = (await pb.collection('todos').getFullList(100))
+    items.value = (await pb.collection('todos').getFullList(100, { expand: 'category' }))
 }
 
 onMounted(async () => {
