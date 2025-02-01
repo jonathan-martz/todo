@@ -8,14 +8,14 @@
             <section class="grid grid-cols-6 gap-3">
                 <div class="col-span-3">
                     <section class="form-control">
-                        <label for="" class="label text-sm font-bold">Prio</label>
-                        <input type="number" v-model="item.prio" min="1" max="5" class="input">
+                        <label for="" class="label text-sm font-bold">Name</label>
+                        <input type="text" v-model="item.name" class="input">
                     </section>
                 </div>
                 <div class="col-span-3">
                     <section class="form-control">
-                        <label for="" class="label text-sm font-bold">Name</label>
-                        <input type="text" v-model="item.name" class="input">
+                        <label for="" class="label text-sm font-bold">Prio</label>
+                        <input type="number" v-model="item.prio" min="1" max="5" class="input">
                     </section>
                 </div>
             </section>
