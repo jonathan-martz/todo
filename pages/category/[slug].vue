@@ -95,13 +95,14 @@
 <script setup lang="ts">
 import { faCheck, faEdit, faList, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 
 const pb = new PocketBase('https://admin.todos.martz.cloud');
 
 let items = ref([]);
 const router = useRouter();
+const route = useRoute();
 
 const sortedItems = computed(() => {
     return items.value
@@ -135,14 +136,14 @@ let edit = (id) => {
 }
 
 let load = async () => {
-    items.value = (await pb.collection('todos').getFullList(100, { expand: 'category' }))
+    items.value = (await pb.collection('todos').getFullList(100, { filter: "category.slug='" + route.params.slug + "'", expand: 'category' }))
 }
 
 onMounted(async () => {
     load();
 
     pb.collection('todos').subscribe('*', function (e) {
-        load();
+        // load();
     }, { /* other options like: filter, expand, custom headers, etc. */ });
 });
 </script>

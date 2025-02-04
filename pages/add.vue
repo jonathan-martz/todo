@@ -8,7 +8,7 @@
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Kategorie</label>
                 <select name="" id="" v-model="item.category" class="select">
-                    <option v-for="category in categories" :key="category.id" :value="category.id">
+                    <option v-for="category in categories" :key="category.id" :value="category.slug">
                         {{ category.name }}
                     </option>
                 </select>
@@ -44,7 +44,7 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 // Todo viewModel
 let item = ref({
@@ -58,6 +58,7 @@ let item = ref({
 const categories = ref([]);
 
 const router = useRouter();
+const route = useRoute();
 
 let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
 
@@ -75,5 +76,10 @@ let add = async () => {
 onMounted(async () => {
     item.value.user = pb.authStore.model?.id ?? '0'
     categories.value = await pb.collection('todos_categories').getFullList(100);
+
+    if (route.query.category) {
+        console.log(route.query);
+        item.value.category = route.query.category;
+    }
 });
 </script>
