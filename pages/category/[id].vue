@@ -8,12 +8,12 @@
                 <a href="/categories" class="btn btn-primary btn-sm">
                     <Fa :icon="faList" size="2x" class="w-3" />
                 </a>
-                <a href="/add" class="btn btn-primary btn-sm">
+                <a :href="'/add?category=' + route.params.id" class="btn btn-primary btn-sm">
                     <Fa :icon="faPlus" size="2x" class="w-3" />
                 </a>
             </section>
         </section>
-        <div v-if="items.length > 0" class="overflow-x-auto hidden md:block">
+        <div v-if="sortedItems.length > 0" class="overflow-x-auto hidden md:block">
             <table class="table">
                 <!-- head -->
                 <thead>
@@ -30,7 +30,7 @@
                         <td>
                             {{ item.prio }}
                         </td>
-                        <td v-if="item.expand.category">
+                        <td v-if="item.expand">
                             {{ item.expand.category.name }}
                         </td>
                         <td v-else>-</td>
@@ -62,7 +62,7 @@
             <p class="text-sm block text-center px-3 py-3 font-bold">Es gibt für dich noch keine Todos.</p>
         </div>
 
-        <div v-if="items.length > 0" class="overflow-x-auto block md:hidden px-3 py-3 lg:px-3 lg:py-0">
+        <div v-if="sortedItems.length > 0" class="overflow-x-auto block md:hidden px-3 py-3 lg:px-3 lg:py-0">
             <div class="grid grid-cols-6 gap-3">
                 <div class="col-span-6" v-for="(item, index) in sortedItems" :key="item.id">
                     <div class="card bg-base-100 shadow-xl">
@@ -105,10 +105,7 @@ const router = useRouter();
 const route = useRoute();
 
 const sortedItems = computed(() => {
-    return items.value
-        .filter(item => !item.done)
-        .filter(item => !item.discarded)
-        .slice().sort((a, b) => b.prio - a.prio)
+    return items.value;
 })
 
 let remove = async (id) => {
@@ -136,14 +133,14 @@ let edit = (id) => {
 }
 
 let load = async () => {
-    items.value = (await pb.collection('todos').getFullList(100, { filter: "category.slug='" + route.params.slug + "'", expand: 'category' }))
+    items.value = (await pb.collection('todos').getList(1,10, { filter: "category='" + route.params.id + "'" })).items;
 }
 
 onMounted(async () => {
     load();
 
     pb.collection('todos').subscribe('*', function (e) {
-        // load();
+        load();
     }, { /* other options like: filter, expand, custom headers, etc. */ });
 });
 </script>

@@ -8,7 +8,7 @@
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Kategorie</label>
                 <select name="" id="" v-model="item.category" class="select">
-                    <option v-for="category in categories" :key="category.id" :value="category.slug">
+                    <option v-for="category in categories" :key="category.id" :value="category.id">
                         {{ category.name }}
                     </option>
                 </select>
@@ -70,15 +70,15 @@ let add = async () => {
         description: item.value.description,
         category: item.value.category
     });
-    router.push('/');
+    router.push('/category/' + route.query.category);
 }
 
 onMounted(async () => {
     item.value.user = pb.authStore.model?.id ?? '0'
     categories.value = await pb.collection('todos_categories').getFullList(100);
+    console.log(route.query.category);
 
     if (route.query.category) {
-        console.log(route.query);
         item.value.category = route.query.category;
     }
 });
