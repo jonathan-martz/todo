@@ -60,7 +60,7 @@ const categories = ref([]);
 const router = useRouter();
 const route = useRoute();
 
-let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
+let pb: PocketBase = new PocketBase('https://admin.martz.cloud');
 
 let add = async () => {
     await pb.collection('todos').create({

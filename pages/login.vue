@@ -42,7 +42,7 @@ let item = ref({
     email: '',
 });
 
-let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
+let pb: PocketBase = new PocketBase('https://admin.martz.cloud');
 
 let login = async () => {
     await pb.collection('users').authWithPassword(item.value.email, item.value.password);

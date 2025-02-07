@@ -98,7 +98,7 @@ import PocketBase from 'pocketbase'
 import { useRouter } from 'vue-router';
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 
-const pb = new PocketBase('https://admin.todos.martz.cloud');
+const pb = new PocketBase('https://admin.martz.cloud');
 
 let items = ref([]);
 const router = useRouter();

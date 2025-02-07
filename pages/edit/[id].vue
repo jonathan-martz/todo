@@ -61,7 +61,7 @@ let item = ref({
 });
 
 const categories = ref([]);
-let pb: PocketBase = new PocketBase('https://admin.todos.martz.cloud');
+let pb: PocketBase = new PocketBase('https://admin.martz.cloud');
 
 let update = async () => {
     await pb.collection('todos').update(item.value.id, {
