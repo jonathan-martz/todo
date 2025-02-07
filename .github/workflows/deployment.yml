@@ -19,7 +19,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /var/wwww/todos.martz.cloud
+            cd /var/www/todos.martz.cloud
             git pull
             bun install
             bun run build
