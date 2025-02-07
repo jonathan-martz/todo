@@ -133,7 +133,7 @@ let edit = (id) => {
 }
 
 let load = async () => {
-    items.value = (await pb.collection('todos').getList(1,10, { filter: "category='" + route.params.id + "'" })).items;
+    items.value = (await pb.collection('todos').getList(1, 10, { filter: "category='" + route.params.id + "'", expand: 'category' })).items;
 }
 
 onMounted(async () => {
