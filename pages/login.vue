@@ -17,12 +17,9 @@
                     </button>
                 </section>
             </form>
-            <div class="modal-action">
-                <form method="dialog">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn">Close</button>
-                </form>
-            </div>
+            <form method="dialog" class="modal-backdrop">
+                <button>close</button>
+            </form>
         </div>
     </dialog>
 </template>
@@ -32,6 +29,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { useLocalStorage } from '@vueuse/core';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 let open = useLocalStorage('open', false, {});
 
@@ -46,5 +46,6 @@ let pb: PocketBase = new PocketBase('https://admin.martz.cloud');
 
 let login = async () => {
     await pb.collection('users').authWithPassword(item.value.email, item.value.password);
+    router.push('/');
 }
 </script>
