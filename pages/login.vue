@@ -1,6 +1,6 @@
 <template>
     {{ open }}
-    <dialog id="my_modal_1" class="modal" :class="{ 'show': open }">
+    <dialog id="my_modal_1" class="modal" :class="{ 'modal-open': open }">
         <div class="modal-box">
             <form @submit.prevent="login()">
                 <section class="form-control">
