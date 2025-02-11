@@ -2,7 +2,7 @@
     <section class="page bg-blue-200 md:mx-auto max-w-6xl">
         <section class="flex justify-between items-center px-3 py-3">
             <div class="headline">
-                <h2 class="font-bold">Todos</h2>
+                <h2 class="font-bold">{{ category.name }}</h2>
             </div>
             <section class="actions space-x-4">
                 <a href="/categories" class="btn btn-primary btn-sm">
@@ -80,9 +80,6 @@
                                 <button @click="discarded(item.id)" class="btn btn-sm btn-primary text-white">
                                     <Fa :icon="faTimes" class="w-3" />
                                 </button>
-                                <button @click="remove(item.id)" class="btn btn-sm btn-primary text-white">
-                                    <Fa :icon="faTrash" class="w-3" />
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -101,18 +98,13 @@ import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 const pb = new PocketBase('https://admin.martz.cloud');
 
 let items = ref([]);
+let category = ref({});
 const router = useRouter();
 const route = useRoute();
 
 const sortedItems = computed(() => {
     return items.value;
 })
-
-let remove = async (id) => {
-    if (confirm('Willst du wirklich das Todo löschen mit der id(' + id + ')')) {
-        await pb.collection('todos').delete(id);
-    }
-}
 
 let discarded = async function (id) {
     await pb.collection('todos').update(id, {
@@ -133,7 +125,8 @@ let edit = (id) => {
 }
 
 let load = async () => {
-    items.value = (await pb.collection('todos').getList(1, 10, { filter: "category='" + route.params.id + "'", expand: 'category' })).items;
+    items.value = (await pb.collection('todos').getList(1, 10, { filter: "category='" + route.params.id + "'", sort: '-prio', expand: 'category' })).items;
+    category.value = await pb.collection('todos_categories').getOne(route.params.id);
 }
 
 onMounted(async () => {
