@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { faCheck, faEdit, faList, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEdit, faList, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
 import { useRouter } from 'vue-router';
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
