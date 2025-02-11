@@ -50,9 +50,6 @@
                             <button @click="discarded(item.id)" class="btn btn-sm btn-primary text-white">
                                 <Fa :icon="faTimes" class="w-3" />
                             </button>
-                            <button @click="remove(item.id)" class="btn btn-sm btn-primary text-white">
-                                <Fa :icon="faTrash" class="w-3" />
-                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -79,9 +76,6 @@
                                 </button>
                                 <button @click="discarded(item.id)" class="btn btn-sm btn-primary text-white">
                                     <Fa :icon="faTimes" class="w-3" />
-                                </button>
-                                <button @click="remove(item.id)" class="btn btn-sm btn-primary text-white">
-                                    <Fa :icon="faTrash" class="w-3" />
                                 </button>
                             </div>
                         </div>
