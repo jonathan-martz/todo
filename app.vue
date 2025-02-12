@@ -17,4 +17,8 @@ if (navigator && 'serviceWorker' in navigator) {
       });
   });
 }
+
+useHead({
+    title: 'Todos - Martz.cloud'
+});
 </script>
