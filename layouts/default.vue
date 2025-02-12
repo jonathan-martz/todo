@@ -22,4 +22,8 @@
 import { useLocalStorage } from '@vueuse/core';
 
 let open = useLocalStorage('open', false, {});
+
+useHead({
+    title: 'Todos.Martz.cloud'
+});
 </script>
