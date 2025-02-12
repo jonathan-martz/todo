@@ -85,7 +85,19 @@
         </div>
     </section>
     <section v-else>
-        Hallo Welt
+        <div class="hero bg-base-200 py-12">
+            <div class="hero-content flex-col lg:flex-row">
+              <img src="/icon-192.png" class="max-w-sm rounded-full shadow-2xl" />
+              <div>
+                <h1 class="text-2xl font-bold text-accent-color block text-center md:text-left">Your Hero Title</h1>
+                <p class="py-6 text-accent-color">
+                  Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. 
+                  In deleniti eaque aut repudiandae et a id nisi.
+                </p>
+                <a href="/login" class="btn btn-primary">Get Started</a>
+              </div>
+            </div>
+          </div>
     </section>
 </template>
 
