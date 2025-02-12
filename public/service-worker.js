@@ -5,10 +5,6 @@ self.addEventListener('install', (event) => {
   
   self.addEventListener('activate', (event) => {
     console.log('Service Worker activating.');
-    event.waitUntil(self.clients.claim()); // Take control of all open clients
-    self.clients.matchAll({ type: 'window' }).then((clients) => {
-      clients.forEach(client => client.navigate(client.url)); // Reload all open clients
-    });
   });
   
   self.addEventListener('fetch', (event) => {
