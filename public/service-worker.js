@@ -1,16 +1,20 @@
-import { precacheAndRoute } from 'workbox-precaching';
-
 const CACHE_NAME = 'my-cache-v1';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
-// Precaching the root URL
-precacheAndRoute([
-  { url: '/', revision: null },
-]);
+// List of specific files to cache
+const FILES_TO_CACHE = [
+  '/',
+  '/_nuxt/'
+];
 
 self.addEventListener('install', (event) => {
   console.log('Service Worker installing.');
   self.skipWaiting(); // Force the waiting service worker to become the active service worker
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(FILES_TO_CACHE);
+    })
+  );
 });
 
 self.addEventListener('activate', (event) => {
@@ -30,9 +34,7 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   console.log('Fetching:', event.request.url);
-  const requestUrl = new URL(event.request.url);
-
-  if (requestUrl.pathname.startsWith('/_nuxt/')) {
+  if (FILES_TO_CACHE.includes(new URL(event.request.url).pathname)) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         if (cachedResponse) {
