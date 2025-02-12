@@ -18,8 +18,8 @@
                     </button>
                 </section>
             </form>
-            <form method="dialog" class="modal-backdrop">
-                <button>close</button>
+            <form method="dialog" class="modal-backdrop flex">
+                <button class="btn btn-neutral btn-sm">close</button>
             </form>
         </div>
     </dialog>
