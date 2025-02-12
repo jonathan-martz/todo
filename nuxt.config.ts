@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     app: {
         head: {
             link: [
-                { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+                { rel: 'icon', type: 'image/x-icon', href: 'https://cdn.jmse.cloud/avatar-2024-modified.png' }
             ],
             title: 'Todos.Martz.cloud'
         }
