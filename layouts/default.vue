@@ -25,9 +25,3 @@ useHead({
     title: 'Todos.Martz.cloud'
 });
 </script>
-
-<style>
-body.standalone header {
-    display: none;
-}
-</style>
