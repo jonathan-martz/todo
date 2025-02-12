@@ -8,6 +8,14 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
+    app: {
+        head: {
+            link: [
+                { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+            ],
+            title: 'Todos.Martz.cloud'
+        }
+    },
 
     compatibilityDate: "2025-01-31",
     modules: ["@nuxtjs/tailwindcss", '@vite-pwa/nuxt']
