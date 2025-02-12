@@ -4,7 +4,7 @@
             <section class="logo"><a href="/" class="text-white font-bold">Todos.martz.cloud</a></section>
             <nav class="flex justify-end">
                 <ul class="flex space-x-3">
-                    <li><button @click="open = !open">Login</button></li>
+                    <li><a href="/login">Login</a></li>
                     <li><a href="/logout">Logout</a></li>
                     <li><a href="/user">User</a></li>
                 </ul>
