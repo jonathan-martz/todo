@@ -1,5 +1,5 @@
 <template>
-    <section class="page bg-blue-200 md:mx-auto max-w-6xl">
+    <section v-if="pb.authStore.isValid" class="page bg-blue-200 md:mx-auto max-w-6xl">
         <section class="flex justify-between items-center px-3 py-3">
             <div class="headline">
                 <h2 class="font-bold">Todos</h2>
@@ -83,6 +83,9 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section v-else>
+        Hallo Welt
     </section>
 </template>
 

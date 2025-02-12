@@ -1,2 +1,57 @@
-if(!self.define){let e,t={};const s=(s,n)=>(s=new URL(s+".js",n).href,t[s]||new Promise((t=>{if("document"in self){const e=document.createElement("script");e.src=s,e.onload=t,document.head.appendChild(e)}else e=s,importScripts(s),t()})).then((()=>{let e=t[s];if(!e)throw new Error(`Module ${s} didn’t register its module`);return e})));self.define=(n,o)=>{const r=e||("document"in self?document.currentScript.src:"")||location.href;if(t[r])return;let i={};const c=e=>s(e,r),u={module:{uri:r},exports:i,require:c};t[r]=Promise.all(n.map((e=>u[e]||c(e)))).then((e=>(o(...e),i)))}}define(["./workbox-6e40739e"],(function(e){"use strict";self.addEventListener("message",(e=>{e.data&&"SKIP_WAITING"===e.data.type&&self.skipWaiting()})),e.registerRoute((({url:e})=>"https://todos.martz.cloud"===e.origin),new e.NetworkFirst({cacheName:"api-cache",plugins:[new e.ExpirationPlugin({maxEntries:50,maxAgeSeconds:2592e3}),new e.CacheableResponsePlugin({statuses:[0,200]})]}),"GET")}));
-//# sourceMappingURL=service-worker.js.map
+const CACHE_NAME = 'my-cache-v1';
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+
+self.addEventListener('install', (event) => {
+  console.log('Service Worker installing.');
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll([]);
+    })
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker activating.');
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        const dateHeader = cachedResponse.headers.get('date');
+        if (dateHeader) {
+          const dateCached = new Date(dateHeader);
+          const now = new Date();
+          if (now - dateCached > CACHE_DURATION) {
+            return fetchAndCache(event.request);
+          }
+          else {
+            console.log('Fetching:', event.request.url);
+          }
+        }
+        return cachedResponse;
+      }
+      return fetchAndCache(event.request);
+    })
+  );
+});
+
+function fetchAndCache(request) {
+  return fetch(request).then((response) => {
+    return caches.open(CACHE_NAME).then((cache) => {
+      cache.put(request, response.clone());
+      return response;
+    });
+  });
+}

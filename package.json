@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "workbox generateSW workbox-config.cjs && nuxt build",
+    "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -15,7 +15,6 @@
     "@vueuse/core": "^12.5.0",
     "nuxt": "^3.15.4",
     "pocketbase": "^0.25.1",
-    "vite-plugin-pwa": "^0.21.1",
     "vue": "latest",
     "vue-router": "latest"
   },
@@ -26,6 +25,7 @@
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.23",
     "postcss": "^8.5.1",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "vite-plugin-pwa": "^0.21.1"
   }
 }
