@@ -21,9 +21,13 @@
 <script setup lang="ts">
 import { useLocalStorage } from '@vueuse/core';
 
-let open = useLocalStorage('open', false, {});
-
 useHead({
     title: 'Todos.Martz.cloud'
 });
 </script>
+
+<style>
+body.standalone header {
+    display: none;
+}
+</style>
