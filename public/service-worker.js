@@ -26,6 +26,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  console.log('Fetching:', event.request.url);
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
@@ -35,9 +36,6 @@ self.addEventListener('fetch', (event) => {
           const now = new Date();
           if (now - dateCached > CACHE_DURATION) {
             return fetchAndCache(event.request);
-          }
-          else {
-            console.log('Fetching:', event.request.url);
           }
         }
         return cachedResponse;
