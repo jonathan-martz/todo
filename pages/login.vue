@@ -1,5 +1,6 @@
 <template>
     {{ open }}
+    <button @click="open = !open">Test 123</button>
     <dialog id="my_modal_1" class="modal" :class="{ 'modal-open': open }">
         <div class="modal-box">
             <form @submit.prevent="login()">
