@@ -1,5 +1,12 @@
+import { precacheAndRoute } from 'workbox-precaching';
+
 const CACHE_NAME = 'my-cache-v1';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+
+// Precaching the root URL
+precacheAndRoute([
+  { url: '/', revision: null },
+]);
 
 self.addEventListener('install', (event) => {
   console.log('Service Worker installing.');
