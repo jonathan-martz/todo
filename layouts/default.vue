@@ -1,7 +1,7 @@
 <template>
     <section class="page">
         <header class="mx-auto max-w-6xl px-3 py-3 bg-red-400 flex justify-between">
-            <section class="logo"><a href="/" class="text-white font-bold">Todos.martz.cloud</a></section>
+            <section class="logo"><a href="/" class="text-white font-bold">Todos - Martz.cloud</a></section>
             <nav class="flex justify-end">
                 <ul class="flex space-x-3">
                     <li><a href="/login">Login</a></li>
@@ -22,6 +22,6 @@
 import { useLocalStorage } from '@vueuse/core';
 
 useHead({
-    title: 'Todos.Martz.cloud'
+    title: 'Todos - Martz.cloud'
 });
 </script>

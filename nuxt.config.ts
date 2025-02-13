@@ -13,7 +13,7 @@ export default defineNuxtConfig({
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/icon-192.png' }
             ],
-            title: 'Todos.Martz.cloud'
+            title: 'Todos - Martz.cloud'
         }
     },
 
