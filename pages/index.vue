@@ -11,10 +11,21 @@
                 <a href="/add" class="btn btn-primary btn-sm">
                     <Fa :icon="faPlus" size="2x" class="w-3" />
                 </a>
+                <button @click="open = !open" class="btn btn-primary btn-sm">
+                    <Fa :icon="faMagnifyingGlass" size="2x" class="w-3" />
+                </button>
             </section>
         </section>
-        <div v-if="items.length > 0" class="overflow-x-auto hidden md:block">
-            <table class="table">
+        <div class="overflow-x-auto hidden md:block">
+            <section class="grid grid-cols-12 px-3">
+                <div class="col-span-2 flex items-center">
+                    <label for="query" class="text-sm font-bold">Suche</label>
+                </div>
+                <div class="col-span-10">
+                    <input v-if="open" id="query" v-model="query" type="text" class="input w-full">
+                </div>
+            </section>
+            <table v-if="sortedItems.length > 0" class="table">
                 <!-- head -->
                 <thead>
                     <tr>
@@ -54,9 +65,9 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div v-else>
-            <p class="text-sm block text-center px-3 py-3 font-bold">Es gibt für dich noch keine Todos.</p>
+            <div v-else>
+                <p class="text-sm block text-center px-3 py-3 font-bold">Es gibt für dich noch keine Todos.</p>
+            </div>
         </div>
 
         <div v-if="items.length > 0" class="overflow-x-auto block md:hidden px-3 py-3 lg:px-3 lg:py-0">
@@ -85,24 +96,47 @@
         </div>
     </section>
     <section v-else>
-        <div class="hero bg-base-200 py-12">
-            <div class="hero-content flex-col lg:flex-row">
-              <img src="/icon-192.png" class="max-w-sm rounded-full shadow-2xl" />
-              <div>
-                <h1 class="text-2xl font-bold text-accent-color block text-center md:text-left">Your Hero Title</h1>
-                <p class="py-6 text-accent-color">
-                  Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. 
-                  In deleniti eaque aut repudiandae et a id nisi.
-                </p>
-                <a href="/login" class="btn btn-primary">Get Started</a>
-              </div>
+        <div class="grid grid-cols-6">
+            <div class="col-span-6 md:col-span-3">
+                <div class="hero bg-base-200 py-12">
+                    <div class="hero-content flex-col lg:flex-row">
+                        <img src="/icon-192.png" class="max-w-sm rounded-full shadow-2xl" />
+                        <div>
+                            <h1 class="text-2xl font-bold text-accent-color block text-center md:text-left">Your Hero
+                                Title</h1>
+                            <p class="py-6 text-accent-color">
+                                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                                exercitationem quasi.
+                                In deleniti eaque aut repudiandae et a id nisi.
+                            </p>
+                            <a href="/login" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-span-6 md:col-span-3">
+                <div class="hero bg-base-200 py-12">
+                    <div class="hero-content flex-col lg:flex-row">
+                        <img src="/icon-192.png" class="max-w-sm rounded-full shadow-2xl" />
+                        <div>
+                            <h1 class="text-2xl font-bold text-accent-color block text-center md:text-left">Your Hero
+                                Title</h1>
+                            <p class="py-6 text-accent-color">
+                                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                                exercitationem quasi.
+                                In deleniti eaque aut repudiandae et a id nisi.
+                            </p>
+                            <a href="/login" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </template>
 
 <script setup lang="ts">
-import { faCheck, faEdit, faList, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEdit, faList, faMagnifyingGlass, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
 import { useRouter } from 'vue-router';
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
@@ -111,6 +145,12 @@ const pb = new PocketBase('https://admin.martz.cloud');
 
 let items = ref([]);
 const router = useRouter();
+let open = ref(false);
+let query = ref('');
+
+watch(query, (value) => {
+    load();
+});
 
 const sortedItems = computed(() => {
     return items.value
@@ -144,7 +184,12 @@ let edit = (id) => {
 }
 
 let load = async () => {
-    items.value = (await pb.collection('todos').getFullList(100, { expand: 'category' }))
+    if (query.value != '') {
+        items.value = (await pb.collection('todos').getFullList(100, { filter: 'name~"%' + query.value + '%"', expand: 'category' }))
+    }
+    else {
+        items.value = (await pb.collection('todos').getFullList(100, { expand: 'category' }))
+    }
 }
 
 onMounted(async () => {
