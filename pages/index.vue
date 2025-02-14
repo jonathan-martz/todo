@@ -71,6 +71,14 @@
         </div>
 
         <div v-if="items.length > 0" class="overflow-x-auto block md:hidden px-3 py-3 lg:px-3 lg:py-0">
+            <section v-if="open" class="grid grid-cols-12 px-3 mb-3">
+                <div class="col-span-2 flex items-center">
+                    <label for="query" class="text-sm font-bold">Suche</label>
+                </div>
+                <div class="col-span-10">
+                    <input id="query" v-model="query" type="text" class="input w-full">
+                </div>
+            </section>
             <div class="grid grid-cols-6 gap-3">
                 <div class="col-span-6" v-for="(item, index) in sortedItems" :key="item.id">
                     <div class="card bg-base-100 shadow-xl">
