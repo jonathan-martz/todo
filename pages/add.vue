@@ -20,19 +20,19 @@
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Prio</label>
                 <div class="btn-block">
-                    <button @click="item.prio = 1">
+                    <button type="button" @click="item.prio = 1">
                         <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 1 ? 'yellow' : 'red'"/>
                     </button>
-                    <button @click="item.prio = 2">
+                    <button type="button" @click="item.prio = 2">
                         <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 2 ? 'yellow' : 'red'"/>
                     </button>
-                    <button @click="item.prio = 3">
+                    <button type="button" @click="item.prio = 3">
                         <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 3 ? 'yellow' : 'red'"/>
                     </button>
-                    <button @click="item.prio = 4">
+                    <button type="button" @click="item.prio = 4">
                         <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 4 ? 'yellow' : 'red'"/>
                     </button>
-                    <button @click="item.prio = 5">
+                    <button type="button" @click="item.prio = 5">
                         <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 5 ? 'yellow' : 'red'"/>
                     </button>
                 </div>

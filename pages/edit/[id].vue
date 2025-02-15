@@ -20,13 +20,23 @@
 
             <section class="form-control">
                 <label for="" class="label text-sm font-bold">Prio</label>
-                <select name="" id="" v-model="item.prio" class="select">
-                    <option value="5">5</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
-                    <option value="2">2</option>
-                    <option value="1">1</option>
-                </select>
+                <div class="btn-block flex justify-center">
+                    <button type="button" @click="item.prio = 1">
+                        <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 1 ? 'yellow' : 'red'"/>
+                    </button>
+                    <button type="button" @click="item.prio = 2">
+                        <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 2 ? 'yellow' : 'red'"/>
+                    </button>
+                    <button type="button" @click="item.prio = 3">
+                        <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 3 ? 'yellow' : 'red'"/>
+                    </button>
+                    <button type="button" @click="item.prio = 4">
+                        <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 4 ? 'yellow' : 'red'"/>
+                    </button>
+                    <button type="button" @click="item.prio = 5">
+                        <Fa :icon="faStar" size="2x" class="w-12" :color="item.prio < 5 ? 'yellow' : 'red'"/>
+                    </button>
+                </div>
             </section>
 
             <section class="form-control">
@@ -43,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faStar } from '@fortawesome/free-solid-svg-icons';
 import PocketBase from 'pocketbase'
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { useRoute, useRouter } from 'vue-router';
